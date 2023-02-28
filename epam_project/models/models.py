@@ -1,3 +1,4 @@
+""" models file used to create database models """
 from sqlalchemy import Table, Integer, String, \
     Column, ForeignKey, Boolean, DateTime, Date
 from sqlalchemy.orm import relationship
@@ -6,7 +7,7 @@ from connection import engine
 
 
 class Employer(Base):
-
+    """ Model for employer"""
     __tablename__ = 'employer'
 
     id = Column(Integer, primary_key=True)
@@ -25,7 +26,7 @@ class Employer(Base):
 
 
 class Employee(Base):
-
+    """ model for employee """
     __tablename__ = 'employee'
 
     id = Column(Integer, primary_key=True)

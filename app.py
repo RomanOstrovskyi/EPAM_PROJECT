@@ -1,3 +1,4 @@
+""" app file, used to start the server"""
 from flask import Flask, jsonify
 from marshmallow import ValidationError
 
