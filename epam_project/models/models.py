@@ -37,11 +37,12 @@ class Employee(Base):
 
     employer_id = Column(Integer, ForeignKey('employer.id'), nullable=False)
 
-    def __init__(self, name, lastname, email, date_of_birth):
+    def __init__(self, name, lastname, email, date_of_birth, employer_id):
         self.name = name
         self.lastname = lastname
         self.email = email
         self.date_of_birth = date_of_birth
+        self.employer_id = employer_id
 
 
 Base.metadata.create_all(engine)
