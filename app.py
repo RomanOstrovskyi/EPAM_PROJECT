@@ -16,5 +16,9 @@ def handle_error(e):
     return jsonify(error=str(e)), code
 
 
+from epam_project.rest.view import endpoints
+app.register_blueprint(endpoints)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
