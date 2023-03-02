@@ -1,6 +1,6 @@
 """ This file contains additional methods for endpoints"""
 from epam_project.models.models import Employer, Employee
-from epam_project.service.validation import validate
+from epam_project.service.validation import validate, validate_update
 
 """ This method is necessary to create an employer"""
 def create_employer_sv(data):
@@ -22,7 +22,7 @@ def update_employer_sv(data, employer):
     new_lastname = data.get('lastname').capitalize()
     new_email = data.get('email')
 
-    validate(new_name, new_lastname, new_email)
+    validate_update(new_name, new_lastname)
 
     if new_name:
         employer.name = new_name
@@ -54,7 +54,7 @@ def update_employee_sv(data, employee):
     new_email = data.get('email')
     new_employer_id = data.get('employer_id')
 
-    validate(new_name, new_lastname, new_email)
+    validate_update(new_name, new_lastname)
 
     if new_name:
         employee.name = new_name
