@@ -78,6 +78,14 @@ def update_employer(email):
         raise Exception("There is no employer with such email address!")
 
     data = request.json
+    new_email = data.get("email")
+
+    if new_email:
+        if session.query(Employer).filter(Employer.email == f'{new_email}').count():
+            raise Exception("Employer with this email already exist.")
+
+        if session.query(Employee).filter(Employee.email == f'{new_email}').count():
+            raise Exception("Employee with this email already exist.")
 
     update_employer_sv(data, employer)
 
@@ -100,7 +108,7 @@ def delete_employer(email):
     session.delete(employer)
     session.commit()
 
-    return jsonify("The employer has been successfully deleted!")
+    return jsonify({"Message": "The employer has been successfully deleted!"})
 
 
 """ Endpoints for employee"""
@@ -121,6 +129,10 @@ def add_employee():
 
     if session.query(Employer).filter(Employer.email == f'{employee.email}').count():
         raise Exception("If you are an employer, you can't be an employee simultaneously.")
+
+    if not session.query(Employer).filter(Employer.id == f'{employee.employer_id}').count():
+        raise Exception(f"There is no employer with id = {employee.employer_id}, please enter correct employer id and "
+                        f"try one more time!")
 
     session.add(employee)
     session.commit()
@@ -174,6 +186,22 @@ def update_employee(email):
 
     data = request.json
 
+    new_email = data.get("email")
+
+    if new_email:
+        if session.query(Employer).filter(Employer.email == f'{new_email}').count():
+            raise Exception("Employer with this email already exist.")
+
+        if session.query(Employee).filter(Employee.email == f'{new_email}').count():
+            raise Exception("Employee with this email already exist.")
+
+    employer_id = data.get('employer_id')
+    if employer_id:
+        if not session.query(Employer).filter(Employer.id == f'{employer_id}').count():
+            raise Exception(
+                f"There is no employer with id = {employer_id}, please enter correct employer id and "
+                f"try one more time!")
+
     update_employee_sv(data, employee)
 
     session.commit()
@@ -190,9 +218,9 @@ def delete_employee(email):
 
     employee = session.query(Employee).filter_by(email=email).first()
     if not employee:
-        raise Exception("There is no employer with such email address!")
+        raise Exception("There is no employee with such email address!")
 
     session.delete(employee)
     session.commit()
 
-    return jsonify("The employee has been successfully deleted!")
+    return jsonify({"Message": "The employee has been successfully deleted!"})
