@@ -27,7 +27,7 @@ def validate_lastname(name):
 
     if len(name) < 5 or len(name) > 30:
         raise ValidationError("Lastname cannot be shorter than 5 letters and longer than 30, please enter correct name"
-                              " and try one more time!")
+                              " and try one more time!!")
 
 
 def validate_email(email):
