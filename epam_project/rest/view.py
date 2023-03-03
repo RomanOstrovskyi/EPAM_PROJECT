@@ -1,3 +1,4 @@
+"""view file, all endpoints related to employer and employee are located there"""
 from flask import Blueprint, request, jsonify
 from connection import session
 from epam_project.models.models import Employer, Employee
@@ -8,14 +9,14 @@ endpoints = Blueprint('endpoints', __name__)
 
 @endpoints.route('/info', methods=['GET'])
 def info():
+    """INFO endpoint"""
     return jsonify({"Message": "This is Epam project!"})
 
 
-""" Endpoints for employer"""
-
-
+#Endpoints for employer
 @endpoints.route('/add_employer/', methods=['POST'])
 def add_employer():
+    """Endpoint responsible for adding employer"""
     args = request.args
 
     if len(args) == 0:
@@ -37,6 +38,7 @@ def add_employer():
 
 @endpoints.route('/get_all_employers', methods=['GET'])
 def get_all_employers():
+    """Endpoint responsible for retrieving all employers"""
 
     result = []
 
@@ -55,6 +57,7 @@ def get_all_employers():
 
 @endpoints.route('/get_employer_by_email/<string:email>', methods=['GET'])
 def get_employer_by_email(email):
+    """Endpoint responsible for retrieving all employers by their email address"""
 
     if len(email) == 0:
         raise Exception("You didnt enter an email address!")
@@ -72,6 +75,7 @@ def get_employer_by_email(email):
 
 @endpoints.route('/update_employer/<string:email>', methods=['PUT'])
 def update_employer(email):
+    """Endpoint responsible for updating employers data by their email address"""
 
     employer = session.query(Employer).filter_by(email=email).first()
     if not employer:
@@ -100,6 +104,7 @@ def update_employer(email):
 
 @endpoints.route('/delete_employer/<string:email>', methods=['DELETE'])
 def delete_employer(email):
+    """Endpoint responsible for deleting employers data from database by their email address"""
 
     employer = session.query(Employer).filter_by(email=email).first()
     if not employer:
@@ -111,11 +116,10 @@ def delete_employer(email):
     return jsonify({"Message": "The employer has been successfully deleted!"})
 
 
-""" Endpoints for employee"""
-
-
+#Endpoint for employee
 @endpoints.route('/add_employee', methods=['POST'])
 def add_employee():
+    """Endpoint responsible for adding employee"""
 
     args = request.args
 
@@ -142,7 +146,7 @@ def add_employee():
 
 @endpoints.route('/get_all_employees', methods=['GET'])
 def get_all_employees():
-
+    """Endpoint responsible for retrieving all employers"""
     result = []
 
     employees = session.query(Employee).all()
@@ -158,12 +162,12 @@ def get_all_employees():
     return jsonify(result)
 
 
-@endpoints.route('/get_employees_by_employer_id/<string:id>', methods=['GET'])
-def get_employees_by_employer_id(id):
-
+@endpoints.route('/get_employees_by_employer_id/<string:employer_id>', methods=['GET'])
+def get_employees_by_employer_id(employer_id):
+    """Endpoint responsible for retrieving all employees by their employer id"""
     result = []
 
-    employees = session.query(Employee).filter(Employee.employer_id == id).all()
+    employees = session.query(Employee).filter(Employee.employer_id == employer_id).all()
 
     if not employees:
         return {"Message": 'There are no employees by that employer id.'}, 200
@@ -178,6 +182,7 @@ def get_employees_by_employer_id(id):
 
 @endpoints.route('/update_employee/<string:email>', methods=['PUT'])
 def update_employee(email):
+    """Endpoint responsible for updating employees data by their email address"""
 
     employee = session.query(Employee).filter_by(email=email).first()
 
@@ -215,6 +220,7 @@ def update_employee(email):
 
 @endpoints.route('/delete_employee/<string:email>', methods=['DELETE'])
 def delete_employee(email):
+    """Endpoint responsible for deleting employees data from database by their email address"""
 
     employee = session.query(Employee).filter_by(email=email).first()
     if not employee:
