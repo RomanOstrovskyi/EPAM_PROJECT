@@ -1,9 +1,8 @@
-""" Config file, contains sensitive data like passwords ans api keys"""
+""" Config file, contains sensitive data like passwords and api keys"""
+
 USERNAME = 'root'
-PASSWORD = 'password'
+PASSWORD = ''
 SERVER = 'localhost'
-DB = 'db'
+DB = ''
 
-
-class Config:
-    SECRET_KEY = 'secret'
+SECRET_KEY = ''

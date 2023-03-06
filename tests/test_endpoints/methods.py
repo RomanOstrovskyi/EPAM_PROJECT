@@ -39,7 +39,7 @@ class AddEmployer:
         lastname = body['lastname']
         email = body['email']
         date = body['date_of_birth']
-        response = self.client.custom_request("POST", f'http://127.0.0.1:5000/add_employer?name={name}'
+        response = self.client.custom_request("POST", f'http://127.0.0.1:5000/api/add_employer?name={name}'
                                                       f'&lastname={lastname}&email={email}&date_of_birth={date}')
 
         validate(instance=response.json(), schema=schema)
@@ -54,7 +54,7 @@ class UpdateEmployer:
 
     def update_employer(self, body: dict, schema: dict):
         email = "woodmaria@example.com"
-        response = self.client.custom_request("PUT", f'http://127.0.0.1:5000/update_employer/{email}', json=body)
+        response = self.client.custom_request("PUT", f'http://127.0.0.1:5000/api/update_employer/{email}', json=body)
 
         validate(instance=response.json(), schema=schema)
         logger.info("response.text")
@@ -67,7 +67,7 @@ class DeleteEmployer:
         self.client = Client()
 
     def delete_employer(self, email: str, schema: dict):
-        response = self.client.custom_request("DELETE", f'http://127.0.0.1:5000/delete_employer/{email}')
+        response = self.client.custom_request("DELETE", f'http://127.0.0.1:5000/api/delete_employer/{email}')
 
         validate(instance=response.json(), schema=schema)
         logger.info("response.text")
@@ -87,7 +87,7 @@ class AddEmployee:
         date = body['date_of_birth']
         employer_id = body['employer_id']
 
-        response = self.client.custom_request("POST", f'http://127.0.0.1:5000/add_employee?name={name}'
+        response = self.client.custom_request("POST", f'http://127.0.0.1:5000/api/add_employee?name={name}'
                                                       f'&lastname={lastname}&email={email}'
                                                       f'&date_of_birth={date}&employer_id={employer_id}')
 
@@ -103,7 +103,7 @@ class UpdateEmployee:
 
     def update_employee(self, body: dict, schema: dict):
         email = "olegarch@gmail.com"
-        response = self.client.custom_request("PUT", f'http://127.0.0.1:5000/update_employee/{email}', json=body)
+        response = self.client.custom_request("PUT", f'http://127.0.0.1:5000/api/update_employee/{email}', json=body)
 
         validate(instance=response.json(), schema=schema)
         logger.info("response.text")
@@ -116,7 +116,7 @@ class DeleteEmployee:
         self.client = Client()
 
     def delete_employee(self, email: str, schema: dict):
-        response = self.client.custom_request("DELETE", f'http://127.0.0.1:5000/delete_employee/{email}')
+        response = self.client.custom_request("DELETE", f'http://127.0.0.1:5000/api/delete_employee/{email}')
 
         validate(instance=response.json(), schema=schema)
         logger.info("response.text")

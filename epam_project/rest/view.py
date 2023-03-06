@@ -1,21 +1,23 @@
+"""view file, all endpoints related to employer and employee are located there"""
 from flask import Blueprint, request, jsonify
 from connection import session
 from epam_project.models.models import Employer, Employee
 from epam_project.service.services import create_employer_sv, update_employer_sv, create_employee_sv, update_employee_sv
+from epam_project.service.validation import validate_date
 
 endpoints = Blueprint('endpoints', __name__)
 
 
 @endpoints.route('/info', methods=['GET'])
 def info():
+    """INFO endpoint"""
     return jsonify({"Message": "This is Epam project!"})
 
 
-""" Endpoints for employer"""
-
-
-@endpoints.route('/add_employer/', methods=['POST'])
+#Endpoints for employer
+@endpoints.route('/api/add_employer/', methods=['POST'])
 def add_employer():
+    """Endpoint responsible for adding employer"""
     args = request.args
 
     if len(args) == 0:
@@ -35,15 +37,16 @@ def add_employer():
     return jsonify({"Message": "Employer successfully created!"}), 200
 
 
-@endpoints.route('/get_all_employers', methods=['GET'])
+@endpoints.route('/api/get_all_employers', methods=['GET'])
 def get_all_employers():
+    """Endpoint responsible for retrieving all employers"""
 
     result = []
 
     employers = session.query(Employer).all()
 
     if not employers:
-        return {"Message": 'There are no employers.'}, 200
+        return {"Message": 'There are no employers.'}, 404
 
     for employer in employers:
         employer = employer.__dict__
@@ -53,8 +56,9 @@ def get_all_employers():
     return jsonify(result)
 
 
-@endpoints.route('/get_employer_by_email/<string:email>', methods=['GET'])
+@endpoints.route('/api/get_employer_by_email/<string:email>', methods=['GET'])
 def get_employer_by_email(email):
+    """Endpoint responsible for retrieving all employers by their email address"""
 
     if len(email) == 0:
         raise Exception("You didnt enter an email address!")
@@ -62,16 +66,37 @@ def get_employer_by_email(email):
     employer = (session.query(Employer).filter_by(email=email).first())
 
     if not employer:
-        return {"Message": 'There is no employer with this email address.'}, 200
-
+        return {"Message": 'There is no employer with this email address.'}, 404
     employer = employer.__dict__
     del employer['_sa_instance_state']
 
     return jsonify(employer)
 
 
-@endpoints.route('/update_employer/<string:email>', methods=['PUT'])
+@endpoints.route('/api/get_employer_by_date_of_birth/<string:date_of_birth>', methods=['GET'])
+def get_employer_by_date_of_birth(date_of_birth):
+    """Endpoint responsible for retrieving all employers by their date of birth"""
+
+    validate_date(date_of_birth)
+
+    employers = session.query(Employer).filter_by(date_of_birth=date_of_birth).all()
+
+    if not employers:
+        return jsonify({'message': 'No employers found for the given date.'}), 404
+
+    result = []
+
+    for employer in employers:
+        employer = employer.__dict__
+        del employer['_sa_instance_state']
+        result.append(employer)
+
+    return result
+
+
+@endpoints.route('/api/update_employer/<string:email>', methods=['PUT'])
 def update_employer(email):
+    """Endpoint responsible for updating employers data by their email address"""
 
     employer = session.query(Employer).filter_by(email=email).first()
     if not employer:
@@ -91,15 +116,20 @@ def update_employer(email):
 
     session.commit()
 
-    employer = session.query(Employer).filter_by(email=email).first()
+    if new_email:
+        employer = session.query(Employer).filter_by(email=new_email).first()
+    else:
+        employer = session.query(Employer).filter_by(email=email).first()
+
     employer = employer.__dict__
     del employer['_sa_instance_state']
 
     return jsonify(employer)
 
 
-@endpoints.route('/delete_employer/<string:email>', methods=['DELETE'])
+@endpoints.route('/api/delete_employer/<string:email>', methods=['DELETE'])
 def delete_employer(email):
+    """Endpoint responsible for deleting employers data from database by their email address"""
 
     employer = session.query(Employer).filter_by(email=email).first()
     if not employer:
@@ -111,11 +141,10 @@ def delete_employer(email):
     return jsonify({"Message": "The employer has been successfully deleted!"})
 
 
-""" Endpoints for employee"""
-
-
-@endpoints.route('/add_employee', methods=['POST'])
+#Endpoint for employee
+@endpoints.route('/api/add_employee', methods=['POST'])
 def add_employee():
+    """Endpoint responsible for adding employee"""
 
     args = request.args
 
@@ -140,15 +169,15 @@ def add_employee():
     return jsonify({"Message": "Employee successfully created!"}), 200
 
 
-@endpoints.route('/get_all_employees', methods=['GET'])
+@endpoints.route('/api/get_all_employees', methods=['GET'])
 def get_all_employees():
-
+    """Endpoint responsible for retrieving all employers"""
     result = []
 
     employees = session.query(Employee).all()
 
     if not employees:
-        return {"Message": 'There are no employees.'}, 200
+        return {"Message": 'There are no employees.'}, 404
 
     for employee in employees:
         employee = employee.__dict__
@@ -158,12 +187,12 @@ def get_all_employees():
     return jsonify(result)
 
 
-@endpoints.route('/get_employees_by_employer_id/<string:id>', methods=['GET'])
-def get_employees_by_employer_id(id):
-
+@endpoints.route('/api/get_employees_by_employer_id/<string:employer_id>', methods=['GET'])
+def get_employee_by_employer_id(employer_id):
+    """Endpoint responsible for retrieving all employees by their employer id"""
     result = []
 
-    employees = session.query(Employee).filter(Employee.employer_id == id).all()
+    employees = session.query(Employee).filter(Employee.employer_id == employer_id).all()
 
     if not employees:
         return {"Message": 'There are no employees by that employer id.'}, 200
@@ -176,8 +205,47 @@ def get_employees_by_employer_id(id):
     return jsonify(result)
 
 
-@endpoints.route('/update_employee/<string:email>', methods=['PUT'])
+@endpoints.route('/api/get_employee_by_date_of_birth/<string:date_of_birth>', methods=['GET'])
+def get_employee_by_date_of_birth(date_of_birth):
+    """Endpoint responsible for retrieving all employees by their date of birth"""
+
+    validate_date(date_of_birth)
+
+    employees = session.query(Employee).filter_by(date_of_birth=date_of_birth).all()
+
+    if not employees:
+        return jsonify({'message': 'No employers found for the given date.'}), 404
+
+    result = []
+
+    for employee in employees:
+        employee = employee.__dict__
+        del employee['_sa_instance_state']
+        result.append(employee)
+
+    return jsonify(result)
+
+
+@endpoints.route('/api/get_employee_by_email/<string:email>', methods=['GET'])
+def get_employee_by_email(email):
+    """Endpoint responsible for retrieving all employers by their email address"""
+
+    if len(email) == 0:
+        raise Exception("You didnt enter an email address!")
+
+    employee = (session.query(Employee).filter_by(email=email).first())
+
+    if not employee:
+        return {"Message": 'There is no employer with this email address.'}, 404
+    employee = employee.__dict__
+    del employee['_sa_instance_state']
+
+    return jsonify(employee)
+
+
+@endpoints.route('/api/update_employee/<string:email>', methods=['PUT'])
 def update_employee(email):
+    """Endpoint responsible for updating employees data by their email address"""
 
     employee = session.query(Employee).filter_by(email=email).first()
 
@@ -206,15 +274,20 @@ def update_employee(email):
 
     session.commit()
 
-    employee = session.query(Employee).filter_by(email=email).first()
+    if new_email:
+        employee = session.query(Employee).filter_by(email=new_email).first()
+    else:
+        employee = session.query(Employee).filter_by(email=email).first()
+
     employee = employee.__dict__
     del employee['_sa_instance_state']
 
     return jsonify(employee)
 
 
-@endpoints.route('/delete_employee/<string:email>', methods=['DELETE'])
+@endpoints.route('/api/delete_employee/<string:email>', methods=['DELETE'])
 def delete_employee(email):
+    """Endpoint responsible for deleting employees data from database by their email address"""
 
     employee = session.query(Employee).filter_by(email=email).first()
     if not employee:

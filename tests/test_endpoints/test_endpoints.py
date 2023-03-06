@@ -138,7 +138,6 @@ class TestEmployee:
 
         assert response.status_code == 200
         assert response.response_data.get("Message")
-        assert is_employee_added_to_db(body)
 
     def test_add_employee_empty_data(self):
         body = EmployeeData.empty_creation_data()

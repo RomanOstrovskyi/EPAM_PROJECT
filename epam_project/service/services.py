@@ -2,8 +2,9 @@
 from epam_project.models.models import Employer, Employee
 from epam_project.service.validation import validate, validate_update
 
-""" This method is necessary to create an employer"""
+
 def create_employer_sv(data):
+    """ This method is necessary to create an employer"""
     name = data.get("name").capitalize()
     lastname = data.get("lastname").capitalize()
     email = data.get("email")
@@ -16,8 +17,8 @@ def create_employer_sv(data):
     return employer
 
 
-""" This method is necessary to update an employer"""
 def update_employer_sv(data, employer):
+    """ This method is necessary to update an employer"""
     new_name = data.get('name').capitalize()
     new_lastname = data.get('lastname').capitalize()
     new_email = data.get('email')
@@ -32,8 +33,8 @@ def update_employer_sv(data, employer):
         employer.email = new_email
 
 
-""" This method is necessary to create an employee"""
 def create_employee_sv(data):
+    """ This method is necessary to create an employee"""
     name = data.get("name").capitalize()
     lastname = data.get("lastname").capitalize()
     email = data.get("email")
@@ -47,8 +48,8 @@ def create_employee_sv(data):
     return employee
 
 
-""" This method is necessary to update an employee"""
 def update_employee_sv(data, employee):
+    """ This method is necessary to update an employee"""
     new_name = data.get('name').capitalize()
     new_lastname = data.get('lastname').capitalize()
     new_email = data.get('email')

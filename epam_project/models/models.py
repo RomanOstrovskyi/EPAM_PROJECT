@@ -1,6 +1,6 @@
 """ models file used to create database models """
-from sqlalchemy import Table, Integer, String, \
-    Column, ForeignKey, Boolean, DateTime, Date
+from sqlalchemy import Integer, String, \
+    Column, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from base import Base
 from connection import engine
@@ -19,6 +19,7 @@ class Employer(Base):
     employees = relationship('Employee', backref='employer', lazy=True)
 
     def __init__(self, name, lastname, email, date_of_birth):
+        """ constructor """
         self.name = name
         self.lastname = lastname
         self.email = email
@@ -38,6 +39,7 @@ class Employee(Base):
     employer_id = Column(Integer, ForeignKey('employer.id'), nullable=False)
 
     def __init__(self, name, lastname, email, date_of_birth, employer_id):
+        """ constructor """
         self.name = name
         self.lastname = lastname
         self.email = email
