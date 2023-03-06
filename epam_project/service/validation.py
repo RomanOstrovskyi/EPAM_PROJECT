@@ -1,8 +1,9 @@
 """ This file contains validation methods"""
+import datetime
 import re
 from marshmallow.validate import ValidationError
 
-regex = r'^[a-zA-Z0-9_]+$'
+REGEX = r'^[a-zA-Z0-9_]+$'
 
 
 def contains_digits(name):
@@ -15,8 +16,8 @@ def validate_name(name):
     if not name:
         raise ValidationError("Name cannot be empty, please enter correct name and try one more time!")
 
-    if not re.match(regex, name):
-        raise ValidationError(f"Name cannot contain next symbols:{regex}, enter correct name and try again!")
+    if not re.match(REGEX, name):
+        raise ValidationError(f"Name cannot contain next symbols:{REGEX}, enter correct name and try again!")
 
     if contains_digits(name):
         raise ValidationError("Name should contain only letters, please enter correct name and try one more time!")
@@ -31,14 +32,14 @@ def validate_lastname(lastname):
     if not lastname:
         raise ValidationError("Lastname cannot be empty, please enter correct name and try one more time!")
 
-    if not re.match(regex, lastname):
-        raise ValidationError(f"Lastname cannot contain next symbols:{regex}, enter correct lastname and try again!")
+    if not re.match(REGEX, lastname):
+        raise ValidationError(f"Lastname cannot contain next symbols:{REGEX}, enter correct lastname and try again!")
 
     if contains_digits(lastname):
         raise ValidationError("Lastname should contain only letters, please enter correct name and try one more time!")
 
-    if len(lastname) < 5 or len(lastname) > 30:
-        raise ValidationError("Lastname cannot be shorter than 5 letters and longer than 30, please enter correct name"
+    if len(lastname) < 2 or len(lastname) > 30:
+        raise ValidationError("Lastname cannot be shorter than 2 letters and longer than 30, please enter correct name"
                               " and try one more time!!")
 
 
@@ -56,6 +57,20 @@ def validate_email(email):
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         raise ValidationError("Email address format is invalid, please enter correct email address and try"
                               " one more time!")
+
+
+def validate_date(date):
+    """ Method responsible for date validation """
+    date_parts = date.split('-')
+    if len(date_parts) != 3:
+        raise ValidationError("Invalid date format. Please use YYYY-MM-DD.")
+
+    try:
+        birth_date = datetime.date(int(date_parts[0]), int(date_parts[1]), int(date_parts[2]))
+    except ValueError as exc:
+        raise ValidationError("Invalid date format. Please use YYYY-MM-DD.") from exc
+
+    return birth_date
 
 
 def validate(name, lastname, email):

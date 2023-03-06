@@ -2,8 +2,12 @@
 from flask import Flask, jsonify
 from marshmallow import ValidationError
 from epam_project.rest.view import endpoints
+from epam_project.views.views import endpoints_for_html
+from config import SECRET_KEY
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="EPAM_PROJECT/templates")
+app.secret_key = SECRET_KEY
+
 
 @app.errorhandler(Exception)
 def handle_error(error):
@@ -18,6 +22,7 @@ def handle_error(error):
 
 
 app.register_blueprint(endpoints)
+app.register_blueprint(endpoints_for_html)
 
 
 if __name__ == '__main__':

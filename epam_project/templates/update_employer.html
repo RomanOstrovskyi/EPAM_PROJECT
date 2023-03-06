@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Employer</title>
+</head>
+<body>
+    <h1>Update Employer</h1>
+
+    <form action="{{ url_for('endpoints_for_html.update_employer', email=email) }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ employer.name }}">
+        <br>
+        <label for="lastname">Lastname:</label>
+        <input type="text" id="lastname" name="lastname" value="{{ employer.lastname }}">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ employer.email }}">
+        <br>
+        <button type="submit">Update Employer</button>
+    </form>
+
+</body>
+</html>

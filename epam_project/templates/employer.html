@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+	<title>Employer Information</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='employer.css') }}">
+</head>
+<body>
+	<h1>Employer Information</h1>
+	<table>
+        <tr>
+			<th>ID</th>
+			<td>{{ employer.id }}</td>
+		</tr>
+		<tr>
+			<th>Name</th>
+			<td>{{ employer.name }}</td>
+		</tr>
+		<tr>
+			<th>Last Name</th>
+			<td>{{ employer.lastname }}</td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td>{{ employer.email }}</td>
+		</tr>
+		<tr>
+			<th>Date of Birth</th>
+			<td>{{ employer.date_of_birth }}</td>
+		</tr>
+	</table>
+
+    <br>
+        <form action="{{ url_for('endpoints_for_html.update_employer', email=employer.email) }}" method="GET">
+            <button type="submit">Update employer</button>
+        </form>
+    <br>
+
+    <form action="{{ url_for('endpoints_for_html.get_employees_by_employer_id') }}" method="GET">
+        <input type="hidden" name="id" value="{{employer.id}}">
+        <button type="submit"> Get all {{ employer.name }}s employees </button>
+    </form>
+
+    <br>
+
+    <form action="{{ url_for('endpoints_for_html.delete_employer') }}" method="POST">
+        <input type="hidden" name="email" value="{{employer.email}}">
+        <button type="submit">Delete</button>
+    </form>
+
+    <br>
+
+	<div class="back-box">
+		<a href="{{ url_for('endpoints_for_html.get_all_employers') }}"><button>Back to All Employers</button></a>
+	</div>
+</body>
+</html>

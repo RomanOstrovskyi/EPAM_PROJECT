@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <title>All Employers</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='employers.css') }}">
+</head>
+<body>
+    <h1>All Employers</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Delete</th>
+                <th>Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employer in employers %}
+            <tr>
+                <td>{{ employer.id }}</td>
+                <td>{{ employer.name }}</td>
+                <td>{{ employer.lastname }}</td>
+                <td>{{ employer.email }}</td>
+                <td>{{ employer.date_of_birth }}</td>
+                <td>
+                    <form action="{{ url_for('endpoints_for_html.delete_employer') }}" method="POST">
+                        <input type="hidden" name="email" value="{{employer.email}}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('endpoints_for_html.get_employer_by_email') }}" method="GET">
+                        <input type="hidden" name="email" value="{{employer.email}}">
+                        <button type="submit">Profile</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <form action="{{ url_for('endpoints_for_html.delete_employer') }}" method="POST">
+        <label for="email">Enter the email address of the employer you want to delete:</label>
+        <input type="text" id="email" name="email">
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+
+    <br>
+    <form action="{{ url_for('endpoints_for_html.get_employer_by_email') }}" method="GET">
+        <label for="email">Search employer by email:</label>
+        <input type="text" id="email" name="email">
+        <button type="submit">Search</button>
+    </form>
+    <br>
+
+    <br>
+    <form action="{{ url_for('endpoints_for_html.get_employer_by_date_of_birth') }}" method="GET">
+        <label for="email">Search employer by birth date(Please use YYYY-MM-DD):</label>
+        <input type="text" id="email" name="email">
+        <button type="submit">Search</button>
+    </form>
+    <br>
+
+    <button onclick="location.href='{{ url_for('endpoints_for_html.get_all_employees') }}'" id="get-all-employees-btn">Get all employees</button>
+
+    <button onclick="location.href='{{ url_for('endpoints_for_html.add_employer') }}'" id="add-employer-btn">Add Employer</button>
+
+</body>
+</html>
