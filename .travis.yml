@@ -19,9 +19,6 @@ before_script:
   - python app.py &
 
 script:
-  - alembic init alembic
-  - alembic revision --autogenerate
-  - alembic upgrade head
   - pytest --cov=epam_project/rest/view.py tests/
   - pylint epam_project
 
