@@ -8,9 +8,6 @@ python:
 
 before_install:
  - mysql -e 'CREATE DATABASE epam;'
- - alembic init alembic
- - alembic revision --autogenerate
- - alembic upgrade head
 
 install:
  - pip install -r requirements.txt
@@ -19,7 +16,10 @@ install:
  - pip install pylint
 
 script:
- - pytest --cov=epam_project/rest/view.py tests/
- - pylint epam_project
+  - alembic init alembic
+  - alembic revision --autogenerate
+  - alembic upgrade head
+  - pytest --cov=epam_project/rest/view.py tests/
+  - pylint epam_project
 
 
