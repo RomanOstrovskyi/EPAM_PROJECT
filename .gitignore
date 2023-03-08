@@ -1,0 +1,5 @@
+.coverage
+epam_project/rest/.pytest_cache
+epam_project/rest/.coverage
+.pytest_cache
+htmlcov
