@@ -3,6 +3,6 @@
 USERNAME = 'root'
 PASSWORD = ''
 SERVER = 'localhost'
-DB = 'epam'
+DB = ''
 
 SECRET_KEY = ''

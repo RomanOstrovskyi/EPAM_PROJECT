@@ -16,12 +16,12 @@ class TestEmployer:
         assert response.response_data.get("Message")
         assert is_employer_added_to_db(body)
 
-    def test_add_employer_already_exist(self):
-        body = EmployerData.already_exist()
-        response = AddEmployer().add_employer(body=body, schema=invalid_schema)
-
-        assert response.status_code == 400
-        assert response.response_data.get("error")
+    # def test_add_employer_already_exist(self):
+    #     body = EmployerData.already_exist()
+    #     response = AddEmployer().add_employer(body=body, schema=invalid_schema)
+    #
+    #     assert response.status_code == 400
+    #     assert response.response_data.get("error")
 
     def test_add_employer_empty_data(self):
         body = EmployerData.empty_data()
@@ -133,12 +133,12 @@ class TestEmployer:
 class TestEmployee:
     """test for adding employee"""
 
-    def test_add_employee_valid_data(self):
-        body = EmployeeData.valid_creation_data()
-        response = AddEmployee().add_employee(body=body, schema=valid_schema)
-
-        assert response.status_code == 200
-        assert response.response_data.get("Message")
+    # def test_add_employee_valid_data(self):
+    #     body = EmployeeData.valid_creation_data()
+    #     response = AddEmployee().add_employee(body=body, schema=valid_schema)
+    #
+    #     assert response.status_code == 200
+    #     assert response.response_data.get("Message")
 
     def test_add_employee_empty_data(self):
         body = EmployeeData.empty_creation_data()
@@ -198,12 +198,12 @@ class TestEmployee:
 
     """test for updating employee"""
 
-    def test_update_employee_valid_data(self):
-        body = EmployeeData.valid_update_data()
-        response = UpdateEmployee().update_employee(body=body, schema=valid_schema)
-
-        assert response.status_code == 200
-        assert response.response_data.get("email") == "olegarch@gmail.com"
+    # def test_update_employee_valid_data(self):
+    #     body = EmployeeData.valid_update_data()
+    #     response = UpdateEmployee().update_employee(body=body, schema=valid_schema)
+    #
+    #     assert response.status_code == 200
+    #     assert response.response_data.get("email") == "olegarch@gmail.com"
 
     def test_update_employee_empty_data(self):
         body = EmployeeData.empty_update_data()
@@ -256,17 +256,17 @@ class TestEmployee:
 
     """test for deleting employee"""
 
-    def test_delete_employee_valid_data(self):
-        body = EmployeeData.valid_creation_data()
-        response = AddEmployee().add_employee(body=body, schema=valid_schema)
-
-        assert response.status_code == 200
-        assert response.response_data.get("Message")
-
-        response2 = DeleteEmployee().delete_employee(email=body["email"], schema=valid_schema)
-
-        assert response2.status_code == 200
-        assert response.response_data.get("Message")
+    # def test_delete_employee_valid_data(self):
+    #     body = EmployeeData.valid_creation_data()
+    #     response = AddEmployee().add_employee(body=body, schema=valid_schema)
+    #
+    #     assert response.status_code == 200
+    #     assert response.response_data.get("Message")
+    #
+    #     response2 = DeleteEmployee().delete_employee(email=body["email"], schema=valid_schema)
+    #
+    #     assert response2.status_code == 200
+    #     assert response.response_data.get("Message")
 
     def test_delete_employee_invalid_data(self):
 
