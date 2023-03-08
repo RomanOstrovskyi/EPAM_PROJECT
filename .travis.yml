@@ -7,7 +7,7 @@ python:
  - "3.8"
 
 before_install:
- - mysql -e 'CREATE DATABASE epam;'
+ - mysql -e 'CREATE DATABASE IF NOT EXISTS epam;'
 
 install:
  - pip install -r requirements.txt
@@ -15,11 +15,13 @@ install:
  - pip install pytest-cov
  - pip install pylint
 
-script:
+before_script:
   - alembic init alembic
   - alembic revision --autogenerate
   - alembic upgrade head
-  - python app.py
+  - python app.py &
+
+script:
   - pytest --cov=epam_project/rest/view.py tests/
   - pylint epam_project
 
