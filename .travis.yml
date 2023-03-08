@@ -19,6 +19,7 @@ script:
   - alembic init alembic
   - alembic revision --autogenerate
   - alembic upgrade head
+  - python app.py
   - pytest --cov=epam_project/rest/view.py tests/
   - pylint epam_project
 
