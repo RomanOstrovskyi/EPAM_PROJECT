@@ -16,12 +16,12 @@ install:
  - pip install pylint
 
 before_script:
-  - alembic init alembic
-  - alembic revision --autogenerate
-  - alembic upgrade head
   - python app.py &
 
 script:
+  - alembic init alembic
+  - alembic revision --autogenerate
+  - alembic upgrade head
   - pytest --cov=epam_project/rest/view.py tests/
   - pylint epam_project
 
