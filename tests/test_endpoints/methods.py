@@ -1,4 +1,4 @@
-from models import ResponseModel, Client
+from .models import ResponseModel, Client
 from jsonschema import validate
 import logging
 from connection import session
@@ -12,17 +12,6 @@ def is_employer_added_to_db(body: dict):
     employer = session.query(Employer).filter(Employer.email == email).first()
 
     if employer is None:
-        return False
-
-    return True
-
-
-def is_employee_added_to_db(body: dict):
-
-    email = body['email']
-    employee = session.query(Employee).filter(Employee.email == email).first()
-
-    if employee is None:
         return False
 
     return True

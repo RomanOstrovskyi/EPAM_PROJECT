@@ -1,8 +1,9 @@
 """tests for all endpoint in rest.view.py"""
 from tests.test_endpoints.schemas.schemas import valid_schema, invalid_schema
 from tests.test_endpoints.models import EmployerData, EmployeeData
-from methods import AddEmployer, UpdateEmployer, DeleteEmployer, AddEmployee, UpdateEmployee, DeleteEmployee
-from methods import is_employer_added_to_db, is_employee_added_to_db
+from .methods import AddEmployer, UpdateEmployer, DeleteEmployer, AddEmployee, UpdateEmployee, DeleteEmployee
+from .methods import is_employer_added_to_db
+import epam_project.rest.view
 
 
 class TestEmployer:

@@ -14,7 +14,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../EPAM_PROJECT\templates" />
+        <option value="$MODULE_DIR$/epam_project/templates" />
       </list>
     </option>
   </component>

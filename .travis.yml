@@ -1,0 +1,24 @@
+language: python
+
+services:
+ - mysql
+
+python:
+ - "3.8"
+
+before_install:
+ - mysql -e 'CREATE DATABASE epam;'
+ - alembic upgrade head
+
+install:
+ - pip install -r requirements.txt
+ - pip install pytest
+ - pip install pytest-cov
+ - pip install pylint
+
+
+script:
+ - pytest --cov=epam_project/rest/view.py tests/
+ - pylint epam_project
+
+

@@ -1,8 +1,8 @@
 """ Config file, contains sensitive data like passwords and api keys"""
 
 USERNAME = 'root'
-PASSWORD = ''
+PASSWORD = 'MyZno26112003'
 SERVER = 'localhost'
-DB = ''
+DB = 'epam'
 
-SECRET_KEY = ''
+SECRET_KEY = 'LBlY1UlF3ucF9cinqRrRfQjB3QKMEQLW'
