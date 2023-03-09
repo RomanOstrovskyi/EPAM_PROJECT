@@ -8,7 +8,7 @@ python:
 
 env:
   global:
-    - DATABASE_URL=mysql://root@localhost/epam
+    - DATABASE_URL=mysql+pymysql://root@localhost/epam
 
 before_install:
   - sudo apt-get update
