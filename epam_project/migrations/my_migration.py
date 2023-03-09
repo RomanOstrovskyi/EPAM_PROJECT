@@ -1,7 +1,7 @@
 """ This file responsible for adding tables to database """
+from sqlalchemy import MetaData, Table, Column, Integer, String, ForeignKeyConstraint, Date
 import os
 import sys
-from sqlalchemy import MetaData, Table, Column, Integer, String, ForeignKeyConstraint, Date
 script_dir = os.path.dirname(os.path.abspath(__file__))
 connection_path = os.path.join(script_dir, '..', '..', 'connection.py')
 sys.path.append(os.path.dirname(connection_path))
