@@ -8,12 +8,13 @@ python:
 
 env:
   global:
-    - DATABASE_URL=mysql+pymysql://root@localhost/epam1
+    - DATABASE_URL=mysql+pymysql://root@localhost/epam
 
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y mysql-client
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS epam1;'
+  - mysql -e 'DROP DATABASE IF EXISTS epam;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS epam;'
 
 install:
  - pip install -r requirements.txt
