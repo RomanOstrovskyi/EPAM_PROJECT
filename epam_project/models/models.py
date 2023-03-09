@@ -2,8 +2,8 @@
 from sqlalchemy import Integer, String, \
     Column, ForeignKey, Date
 from sqlalchemy.orm import relationship
-from base import Base
 from connection import engine
+from base import Base
 
 
 class Employer(Base):
