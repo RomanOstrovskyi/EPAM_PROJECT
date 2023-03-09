@@ -2,15 +2,17 @@
 from datetime import datetime
 import os
 import sys
+from connection import session
+from epam_project.models.models import Employer, Employee
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 connection_path = os.path.join(script_dir, '..', '..', 'connection.py')
 sys.path.append(os.path.dirname(connection_path))
-from connection import session
 
 models_path = os.path.join(script_dir, '..', 'models', 'models.py')
 sys.path.append(os.path.dirname(models_path))
-from epam_project.models.models import Employer, Employee
+
 
 DATE_STR = '2003-11-26'
 DATE_OBJ = datetime.strptime(DATE_STR, '%Y-%m-%d')
