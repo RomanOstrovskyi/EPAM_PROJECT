@@ -2,18 +2,19 @@
 from flask import Flask
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import Session
-from config import USERNAME, PASSWORD, SERVER, DB
+from config import USERNAME, PORT, SERVER, DB
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import os
 
-url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{SERVER}/{DB}"
+DATABASE_URL = os.environ['DATABASE_URL']
 
 metadata = MetaData()
-engine = create_engine(url)
+engine = create_engine(DATABASE_URL)
 session = Session(bind=engine)
 
 app = Flask(__name__, template_folder="EPAM_PROJECT/templates")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{SERVER}/{DB}"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)

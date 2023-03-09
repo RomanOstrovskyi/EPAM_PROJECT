@@ -8,10 +8,7 @@ python:
 
 env:
   global:
-    - USERNAME=root
-    - PASSWORD=password
-    - SERVER=localhost
-    - DATABASE=epam
+    - DATABASE_URL=mysql://root@localhost/epam
 
 before_install:
   - sudo apt-get update
