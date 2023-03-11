@@ -23,6 +23,7 @@ install:
  - pip install pylint
  - pip install -U Flask-SQLAlchemy
  - pip install Flask-Migrate
+ - pip install coveralls
 
 before_script:
   - python main.py &
@@ -34,5 +35,5 @@ script:
   - pylint epam_project
 
 after_success:
-  -
+  - coveralls
 
