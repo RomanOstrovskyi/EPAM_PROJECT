@@ -1,7 +1,9 @@
 """tests for all endpoint in rest.view.py"""
-from tests.test_endpoints.schemas.schemas import valid_schema, invalid_schema
+from tests.test_endpoints.schemas.schemas import valid_schema, invalid_schema, valid_get_schema,\
+    valid_get_by_email_date_of_birth_schema
 from tests.test_endpoints.models import EmployerData, EmployeeData
-from .methods import AddEmployer, UpdateEmployer, DeleteEmployer, AddEmployee, UpdateEmployee, DeleteEmployee
+from .methods import AddEmployer, GetEmployer, UpdateEmployer, DeleteEmployer, AddEmployee,\
+    UpdateEmployee, DeleteEmployee, GetEmployee
 from .methods import is_employer_added_to_db
 import epam_project.rest.view
 
@@ -61,6 +63,46 @@ class TestEmployer:
     def test_add_employer_invalid_lastname_symbol(self):
         body = EmployerData.invalid_lastname_symbols()
         response = AddEmployer().add_employer(body=body, schema=invalid_schema)
+
+        assert response.status_code == 400
+        assert response.response_data.get("error")
+
+    """test for getting employer/employers"""
+    def test_get_all_employers(self):
+        response = GetEmployer().get_employers(schema=valid_get_schema)
+
+        assert response.status_code == 200
+
+    def test_get_employer_by_email(self):
+        email = "romaostrovskiy616@gmail.com"
+        response = GetEmployer().get_employer_by_email(email=email, schema=valid_get_by_email_date_of_birth_schema)
+
+        assert response.status_code == 200
+        assert response.response_data.get("email") == email
+
+    def test_get_employer_by_non_existent_email(self):
+        email = "non-existent@gmail.com"
+        response = GetEmployer().get_employer_by_email(email=email, schema=invalid_schema)
+
+        assert response.status_code == 404
+        assert response.response_data.get("Message")
+
+    def test_get_employer_by_date_of_birth(self):
+        date_of_birth = "2003-11-26"
+        response = GetEmployer().get_employer_by_date_of_birth(date_of_birth=date_of_birth, schema=valid_get_schema)
+
+        assert response.status_code == 200
+
+    def test_get_employer_by_date_of_birth_dont_exist(self):
+        date_of_birth = "2004-11-27"
+        response = GetEmployer().get_employer_by_date_of_birth(date_of_birth=date_of_birth, schema=invalid_schema)
+
+        assert response.status_code == 404
+        assert response.response_data.get("message")
+
+    def test_get_employer_by_date_of_birth_invalid_format(self):
+        date_of_birth = "2004-11-272"
+        response = GetEmployer().get_employer_by_date_of_birth(date_of_birth=date_of_birth, schema=invalid_schema)
 
         assert response.status_code == 400
         assert response.response_data.get("error")
@@ -196,8 +238,53 @@ class TestEmployee:
         assert response.status_code == 400
         assert response.response_data.get("error")
 
-    """test for updating employee"""
+    """test for getting employee/employees"""
+    def test_get_all_employees(self):
+        response = GetEmployee().get_employees(schema=valid_get_schema)
 
+        assert response.status_code == 200
+
+    def test_get_employee_by_email(self):
+        email = "Ivantsiv@gmail.com1"
+        response = GetEmployee().get_employee_by_email(email=email, schema=valid_get_by_email_date_of_birth_schema)
+
+        assert response.status_code == 200
+        assert response.response_data.get("email") == email
+
+    def test_get_employee_by_non_existent_email(self):
+        email = "non-existent@gmail.com"
+        response = GetEmployee().get_employee_by_email(email=email, schema=invalid_schema)
+
+        assert response.status_code == 404
+        assert response.response_data.get("Message")
+
+    def test_get_employee_by_date_of_birth(self):
+        date_of_birth = "2003-11-26"
+        response = GetEmployee().get_employee_by_date_of_birth(date_of_birth=date_of_birth, schema=valid_get_schema)
+
+        assert response.status_code == 200
+
+    def test_get_employee_by_date_of_birth_dont_exist(self):
+        date_of_birth = "2004-11-27"
+        response = GetEmployee().get_employee_by_date_of_birth(date_of_birth=date_of_birth, schema=invalid_schema)
+
+        assert response.status_code == 404
+        assert response.response_data.get("message")
+
+    def test_get_employee_by_date_of_birth_invalid_format(self):
+        date_of_birth = "2004-11-272"
+        response = GetEmployee().get_employee_by_date_of_birth(date_of_birth=date_of_birth, schema=invalid_schema)
+
+        assert response.status_code == 400
+        assert response.response_data.get("error")
+
+    def test_get_employee_by_employer_id(self):
+        employer_id = 3
+        response = GetEmployee().get_employee_by_employer_id(employer_id=employer_id, schema=valid_get_schema)
+
+        assert response.status_code == 200
+
+    """test for updating employee"""
     def test_update_employee_valid_data(self):
         body = EmployeeData.valid_update_data()
         response = UpdateEmployee().update_employee(body=body, schema=valid_schema)

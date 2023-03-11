@@ -29,9 +29,10 @@ before_script:
   - python epam_project/migrations/my_migration.py
   - python epam_project/migrations/add_db_data.py
 
-
 script:
   - pytest --cov=epam_project/rest/view.py tests/
   - pylint epam_project
 
+after_success:
+  -
 

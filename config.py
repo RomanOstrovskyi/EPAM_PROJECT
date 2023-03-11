@@ -3,6 +3,7 @@
 SERVER = 'localhost'
 PORT = 3306
 USERNAME = 'root'
+PASSWORD = ''
 DB = 'epam'
 
 SECRET_KEY = ''

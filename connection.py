@@ -2,12 +2,13 @@
 from flask import Flask
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import Session
-from config import USERNAME, PORT, SERVER, DB
+from config import USERNAME, PORT, SERVER, DB, PASSWORD
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 
 DATABASE_URL = os.environ['DATABASE_URL']
+# DATABASE_URL = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{SERVER}/{DB}"
 
 metadata = MetaData()
 engine = create_engine(DATABASE_URL)
