@@ -6,19 +6,33 @@ services:
 python:
  - "3.8"
 
+env:
+  global:
+    - DATABASE_URL=mysql+pymysql://root@localhost/epam
+
 before_install:
- - mysql -e 'CREATE DATABASE epam;'
- - alembic upgrade head
+  - sudo apt-get update
+  - sudo apt-get install -y mysql-client
+  - mysql -e 'DROP DATABASE IF EXISTS epam;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS epam;'
 
 install:
  - pip install -r requirements.txt
  - pip install pytest
  - pip install pytest-cov
  - pip install pylint
+ - pip install -U Flask-SQLAlchemy
+ - pip install Flask-Migrate
 
+before_script:
+  - python main.py &
+  - python epam_project/migrations/my_migration.py
+  - python epam_project/migrations/add_db_data.py
 
 script:
- - pytest --cov=epam_project/rest/view.py tests/
- - pylint epam_project
+  - pytest --cov=epam_project/rest/view.py tests/
+  - pylint epam_project
 
+after_success:
+  -
 

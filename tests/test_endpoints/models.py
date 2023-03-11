@@ -132,7 +132,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = fake.email()
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def empty_creation_data():
@@ -144,7 +144,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = fake.email()
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def invalid_lastname_creation_data():
@@ -152,7 +152,7 @@ class EmployeeData:
         lastname = "namewqeqweqwe2342"
         email = fake.email()
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def invalid_email_creation_data():
@@ -160,7 +160,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = "roma@ostrovskiy616@gmail@com"
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def invalid_employer_id_creation_data():
@@ -176,7 +176,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = "Ivantsiv@gmail.com1"
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def invalid_name_symbols_data():
@@ -184,7 +184,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = fake.email()
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     @staticmethod
     def invalid_lastname_symbols_data():
@@ -192,7 +192,7 @@ class EmployeeData:
         lastname = fake.last_name()
         email = fake.email()
 
-        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "email": email, "date_of_birth": date_obj, "employer_id": 3}
 
     """Data for updating"""
 
@@ -201,7 +201,7 @@ class EmployeeData:
         name = fake.first_name()
         lastname = fake.last_name()
 
-        return {"name": name, "lastname": lastname, "employer_id": 10}
+        return {"name": name, "lastname": lastname, "employer_id": 2}
 
     @staticmethod
     def empty_update_data():
@@ -251,8 +251,6 @@ class EmployeeData:
         lastname = "namewqeqweqwe@"
 
         return {"name": name, "lastname": lastname}
-
-
 
 
 class ResponseModel:

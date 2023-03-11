@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:sqlite:D:\PyCharmProjects\EPAM_PROJECT\epam_project\rest\.coverage</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="[2]" uuid="9d211fe8-dea5-42ed-b5d6-bb59a29622bf">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\PyCharmProjects\EPAM_PROJECT\tests\test_endpoints\.coverage</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
