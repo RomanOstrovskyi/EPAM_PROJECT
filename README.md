@@ -23,7 +23,7 @@ This is  **Flask-based** application, created for companies that need to track a
   ```
 4. Install the required dependencies:
   ```
-  > pip install -r requirnents.txt
+  > pip install -r requirements.txt
   ```
 5. Set up the database:
 
